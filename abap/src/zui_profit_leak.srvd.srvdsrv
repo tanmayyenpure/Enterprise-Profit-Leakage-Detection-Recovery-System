@@ -1,0 +1,6 @@
+@EndUserText.label: 'Profit Leakage Service'
+define service ZUI_PROFIT_LEAK {
+ expose ZC_Profit_Leak as ProfitLeaks;
+ expose ZC_Leak_Log as LeakLogs;
+ expose ZI_Leak_Summary as LeakageSummary;
+}

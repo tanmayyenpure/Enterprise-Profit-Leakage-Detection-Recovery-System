@@ -1,0 +1,38 @@
+managed implementation in class zbp_i_profit_leak unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_Profit_Leak alias ProfitLeak
+persistent table zprofit_leak
+draft table zprofit_leak_d
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+ create;
+ update;
+ delete;
+ field ( readonly ) LeakUUID, LeakID, LeakageAmount, LeakagePercent, RootCause, Status, CreatedBy, CreatedAt, LastChangedAt, LocalLastChangedAt;
+ determination calcLeakage on modify { create; field ExpectedPrice, ActualPrice, Quantity; }
+ determination setRootCause on modify { create; field SourceModule, ExpectedPrice, ActualPrice, Quantity; }
+ determination setDefaultStatus on modify { create; }
+ validation validateQuantity on save { create; field Quantity; }
+ validation validatePrices on save { create; field ExpectedPrice, ActualPrice; }
+ action ( features : instance ) flagForRecovery result [1] $self;
+ action ( features : instance ) markRecovered result [1] $self;
+ draft action Edit;
+ draft action Activate;
+ draft action Discard;
+ draft action Resume;
+ draft determine action Prepare;
+ association _RecoveryLog { create; }
+}
+
+define behavior for ZI_Leak_Log alias LeakLog
+persistent table zleak_log
+lock dependent by _Leak
+authorization dependent by _Leak
+{
+ field ( readonly ) LogUUID, ParentUUID, ActionText, ActionBy, ActionAt;
+ association _Leak;
+}

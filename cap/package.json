@@ -1,0 +1,9 @@
+{
+ "name":"enterprise-profit-leakage-system",
+ "version":"1.0.0",
+ "private":true,
+ "scripts":{"start":"cds-serve","test":"cds.test test"},
+ "dependencies":{"@sap/cds":"^8","better-sqlite3":"^11"},
+ "devDependencies":{"@cap-js/sqlite":"^1","chai":"^5","mocha":"^10"},
+ "cds":{"requires":{"db":{"kind":"sqlite","credentials":{"url":"db.sqlite"}}}}
+}

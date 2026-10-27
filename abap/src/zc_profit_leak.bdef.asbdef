@@ -1,0 +1,16 @@
+projection;
+strict ( 2 );
+use draft;
+define behavior for ZC_Profit_Leak alias ProfitLeak
+{
+ use create;
+ use update;
+ use delete;
+ use action flagForRecovery;
+ use action markRecovered;
+ use association _RecoveryLog { create; }
+}
+define behavior for ZC_Leak_Log alias LeakLog
+{
+ use association _Leak;
+}

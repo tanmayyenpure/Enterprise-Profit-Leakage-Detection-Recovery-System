@@ -1,0 +1,14 @@
+{
+  "xsappname": "enterprise-profit-leakage-system",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.User", "description": "Profit leakage application user" }
+  ],
+  "role-templates": [
+    {
+      "name": "ProfitLeakUser",
+      "description": "View and process leakage records",
+      "scope-references": ["$XSAPPNAME.User"]
+    }
+  ]
+}

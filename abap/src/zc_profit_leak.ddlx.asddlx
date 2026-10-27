@@ -1,0 +1,19 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: { typeName: 'Profit Leak', typeNamePlural: 'Profit Leaks', title: { value: 'LeakID' }, description: { value: 'RootCause' } }
+annotate entity ZC_Profit_Leak with
+{
+ @UI.facet: [
+  { id: 'General', type: #IDENTIFICATION_REFERENCE, label: 'General', position: 10 },
+  { id: 'Pricing', type: #FIELDGROUP_REFERENCE, targetQualifier: 'Pricing', label: 'Pricing', position: 20 },
+  { id: 'RecoveryLog', type: #LINEITEM_REFERENCE, targetElement: '_RecoveryLog', label: 'Recovery Log', position: 30 }]
+ @UI.lineItem: [{ position: 10 }] @UI.selectionField: [{ position: 10 }] LeakID;
+ @UI.lineItem: [{ position: 20 }] @UI.selectionField: [{ position: 20 }] SourceModule;
+ @UI.lineItem: [{ position: 30, criticality: 'StatusCriticality' }] @UI.selectionField: [{ position: 30 }] Status;
+ @UI.lineItem: [{ position: 40 }] LeakageAmount;
+ @UI.identification: [{ position: 10 }] CustomerOrVendor;
+ @UI.identification: [{ position: 20 }] Product;
+ @UI.fieldGroup: [{ qualifier: 'Pricing', position: 10 }] ExpectedPrice;
+ @UI.fieldGroup: [{ qualifier: 'Pricing', position: 20 }] ActualPrice;
+ @UI.fieldGroup: [{ qualifier: 'Pricing', position: 30 }] Quantity;
+ @UI.identification: [{ position: 30 }] RootCause;
+}

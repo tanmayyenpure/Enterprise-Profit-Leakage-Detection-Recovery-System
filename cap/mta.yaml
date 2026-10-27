@@ -1,0 +1,26 @@
+_schema-version: "3.3"
+ID: enterprise-profit-leakage-system
+version: 1.0.0
+description: Hypothetical INR profit leakage prototype
+modules:
+  - name: profit-leak-srv
+    type: nodejs
+    path: .
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: profit-leak-auth
+      - name: profit-leak-db
+resources:
+  - name: profit-leak-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: xs-security.json
+  - name: profit-leak-db
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+# Local development uses SQLite. Configure the production profile for HANA HDI.
